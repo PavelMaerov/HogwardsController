@@ -24,7 +24,7 @@ public class FacultyServiceWithMap {
         if (faculty == null) throw new NotFoundException("факультет", id);
         return faculty;
     }
-    public Faculty update(Faculty faculty) {  //возвращаем старую версию студента
+    public Faculty update(Faculty faculty) {  //возвращаем старую версию факультета
         Faculty oldFaculty = faculties.replace(faculty.getId(), faculty);
         if (oldFaculty == null) throw new NotFoundException("факультет", faculty.getId());
         return oldFaculty;

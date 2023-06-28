@@ -8,7 +8,6 @@ import ru.hogwarts.school.repository.StudentRepository;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -29,6 +28,9 @@ public class StudentService {
     }
     public Student update(Student student) {  //возвращаем старую версию студента
         Student oldStudent = read(student.getId()); //если такого нет - возникнет исключение
+        //Интересный эффект: и read и save возвращают указатель на одно и то же место.
+        //Это значит, что сохраняя результат read, мы не сохраняем ничего. save все перепишет
+        oldStudent = new Student(oldStudent.getId(), oldStudent.getName(), oldStudent.getAge());
         repository.save(student);
         return oldStudent;
     }
@@ -37,11 +39,11 @@ public class StudentService {
         repository.deleteById(id);
         return oldStudent;
     }
-    //public List<Student> readByAge(int age) {
-    //    return students.values().stream().filter(s->s.getAge()==age).collect(Collectors.toList());
-    //}
-    //public Collection<Student> readAll() {
-    //    return students.values();
-    //}
+    public List<Student> readByAge(int age) {
+        return repository.findByAge(age);
+    }
+    public Collection<Student> readAll() {
+        return repository.findAll();
+    }
 
 }
