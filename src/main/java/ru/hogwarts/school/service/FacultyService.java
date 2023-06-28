@@ -3,38 +3,42 @@ package ru.hogwarts.school.service;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.exception.NotFoundException;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.repository.FacultyRepository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class FacultyService {
-    private long countId = 0;
-    private final Map<Long, Faculty> faculties = new HashMap<>();
+    private final FacultyRepository repository;
 
-    public Faculty create(Faculty faculty) { //возвращаем новый факультет c новым id
-        Faculty newFaculty = new Faculty(++countId, faculty.getName(), faculty.getColor());
-        faculties.put(countId, newFaculty);
-        return newFaculty;
+    public FacultyService(FacultyRepository repository) {
+        this.repository = repository;
+    }
+
+    public Faculty create(Faculty faculty) { //возвращаем нового студента c новым id
+        Faculty newFaculty = new Faculty(0L, faculty.getName(), faculty.getColor());
+        return repository.save(newFaculty);
     }
     public Faculty read(Long id) {
-        Faculty faculty = faculties.get(id);
-        if (faculty == null) throw new NotFoundException("факультет", id);
-        return faculty;
+        Optional<Faculty> faculty = repository.findById(id);
+        if (faculty.isEmpty()) throw new NotFoundException("студент", id);
+        return faculty.get();
     }
     public Faculty update(Faculty faculty) {  //возвращаем старую версию студента
-        Faculty oldFaculty = faculties.replace(faculty.getId(), faculty);
-        if (oldFaculty == null) throw new NotFoundException("факультет", faculty.getId());
+        Faculty oldFaculty = read(faculty.getId()); //если такого нет - возникнет исключение
+        repository.save(faculty);
         return oldFaculty;
     }
-    public Faculty delete(Long id) {  //возвращаем удаленный факультет
-        Faculty faculty = faculties.remove(id);
-        if (faculty == null) throw new NotFoundException("факультет", id);
-        return faculty;
+    public Faculty delete(Long id) {  //возвращаем удаленного студента
+        Faculty oldFaculty = read(id); //если такого нет - возникнет исключение
+        repository.deleteById(id);
+        return oldFaculty;
     }
-    public List<Faculty> readByColor(String color) {
-        return faculties.values().stream().filter(f->f.getColor().equals(color)).collect(Collectors.toList());
-    }
+    //public List<Faculty> readByAge(int age) {
+    //    return facultys.values().stream().filter(s->s.getAge()==age).collect(Collectors.toList());
+    //}
+    //public Collection<Faculty> readAll() {
+    //    return facultys.values();
+    //}
+
 }

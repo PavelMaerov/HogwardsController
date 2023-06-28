@@ -32,9 +32,9 @@ public class FacultyController {
         return service.delete(id);
     }
 
-    @GetMapping(params = "color")
-    List<Faculty> readByAge(@RequestParam String color) {
-        return service.readByColor(color);
-    }
+    //@GetMapping(params = "color")
+    //List<Faculty> readByAge(@RequestParam String color) {
+    //    return service.readByColor(color);
+   //}
 
 }

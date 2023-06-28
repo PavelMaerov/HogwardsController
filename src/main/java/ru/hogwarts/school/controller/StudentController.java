@@ -33,13 +33,13 @@ public class StudentController {
         return service.delete(id);
     }
 
-    @GetMapping(params = "age")
-    List<Student> readByAge(@RequestParam int age) {
-        return service.readByAge(age);
-    }
-    @GetMapping
-    Collection<Student> readAll() {
-        return service.readAll();
-    }
+    //@GetMapping(params = "age")
+    //List<Student> readByAge(@RequestParam int age) {
+    //    return service.readByAge(age);
+    //}
+    //@GetMapping
+    //Collection<Student> readAll() {
+    //    return service.readAll();
+    //}
 
 }
