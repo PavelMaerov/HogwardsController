@@ -6,9 +6,9 @@ Content-Type: application/json
   "age": 11
 }
 ###
-GET http://localhost:8080/student?id=2
+GET http://localhost:8080/student?id=4
 ###
-GET http://localhost:8080/student?age=11
+GET http://localhost:8080/student?minAge=10
 ###
 GET http://localhost:8080/student
 ###
@@ -22,5 +22,6 @@ Content-Type: application/json
 }
 ###
 DELETE http://localhost:8080/student?aaa=2
-
+###
+GET http://localhost:8080/student?facultyOfStudent=50
 ###

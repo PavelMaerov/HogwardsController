@@ -5,8 +5,7 @@ import ru.hogwarts.school.exception.NotFoundException;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repository.FacultyRepository;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class FacultyService {
@@ -38,11 +37,22 @@ public class FacultyService {
         repository.deleteById(id);
         return oldFaculty;
     }
-    public List<Faculty> readByColor(String color) {
+    public Set<Faculty> readByColor(String color) {
         return repository.findByColor(color);
     }
-    public List<Faculty> readAll() {
-        return repository.findAll();
-    }
 
+    //для варианта, когда оба параметра должны быть заданы, но могут быть c пустым значением
+    public Set<Faculty> readByNameIgnoreCase(String name) {
+        return repository.findByNameIgnoreCase(name);
+    }
+    public Set<Faculty> readByColorIgnoreCase(String color) {
+        return repository.findByColorIgnoreCase(color);
+    }
+    //для варианта, когда по одному параметру ищем в обоих полях
+    public Set<Faculty> readByNameIgnoreCaseOrColorIgnoreCase(String nameOrColor) {
+        return repository.findByNameIgnoreCaseOrColorIgnoreCase(nameOrColor, nameOrColor);
+    }
+    public Set<Faculty> readAll() {
+        return new HashSet<>(repository.findAll());
+    }
 }

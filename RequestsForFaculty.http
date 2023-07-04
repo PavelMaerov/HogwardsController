@@ -6,9 +6,11 @@ Content-Type: application/json
   "color": "11"
 }
 ###
-GET http://localhost:8080/faculty?id=2
+GET http://localhost:8080/faculty
 ###
-GET http://localhost:8080/faculty?color=22
+GET http://localhost:8080/faculty?id=7
+###
+GET http://localhost:8080/faculty?nameOrColor=11
 ###
 PUT http://localhost:8080/faculty
 Content-Type: application/json
@@ -20,5 +22,6 @@ Content-Type: application/json
 }
 ###
 DELETE http://localhost:8080/faculty?id=1
-
+###
+GET http://localhost:8080/faculty?studentsOfFaculty=6
 ###

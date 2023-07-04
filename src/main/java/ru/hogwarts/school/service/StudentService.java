@@ -5,9 +5,7 @@ import ru.hogwarts.school.exception.NotFoundException;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class StudentService {
@@ -18,7 +16,7 @@ public class StudentService {
     }
 
     public Student create(Student student) { //возвращаем нового студента c новым id
-        Student newStudent = new Student(0L, student.getName(), student.getAge());
+        Student newStudent = new Student(0L, student.getName(), student.getAge(), null);
         return repository.save(newStudent);
     }
     public Student read(Long id) {
@@ -30,7 +28,7 @@ public class StudentService {
         Student oldStudent = read(student.getId()); //если такого нет - возникнет исключение
         //Интересный эффект: и read и save возвращают указатель на одно и то же место.
         //Это значит, что сохраняя результат read, мы не сохраняем ничего. save все перепишет
-        oldStudent = new Student(oldStudent.getId(), oldStudent.getName(), oldStudent.getAge());
+        oldStudent = new Student(oldStudent.getId(), oldStudent.getName(), oldStudent.getAge(), oldStudent.getFaculty());
         repository.save(student);
         return oldStudent;
     }
@@ -39,11 +37,13 @@ public class StudentService {
         repository.deleteById(id);
         return oldStudent;
     }
-    public List<Student> readByAge(int age) {
+    public Set<Student> readByAge(int age) {
         return repository.findByAge(age);
     }
-    public Collection<Student> readAll() {
-        return repository.findAll();
+    public Set<Student> readByAgeBetween(int minAge, int maxAge) {
+        return repository.findByAgeBetween(minAge, maxAge);
     }
-
+    public Set<Student> readAll() {
+        return new HashSet<>(repository.findAll());
+    }
 }
