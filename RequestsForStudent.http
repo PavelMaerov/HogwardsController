@@ -1,0 +1,27 @@
+POST http://localhost:8080/student
+Content-Type: application/json
+
+{
+  "name": "111",
+  "age": 11
+}
+###
+GET http://localhost:8080/student?id=4
+###
+GET http://localhost:8080/student?minAge=10
+###
+GET http://localhost:8080/student
+###
+PUT http://localhost:8080/student
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "222",
+  "age": 22
+}
+###
+DELETE http://localhost:8080/student?aaa=2
+###
+GET http://localhost:8080/student?facultyOfStudent=50
+###

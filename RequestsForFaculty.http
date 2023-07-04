@@ -1,0 +1,27 @@
+POST http://localhost:8080/faculty
+Content-Type: application/json
+
+{
+  "name": "111",
+  "color": "11"
+}
+###
+GET http://localhost:8080/faculty
+###
+GET http://localhost:8080/faculty?id=7
+###
+GET http://localhost:8080/faculty?nameOrColor=11
+###
+PUT http://localhost:8080/faculty
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "222",
+  "color": 22
+}
+###
+DELETE http://localhost:8080/faculty?id=1
+###
+GET http://localhost:8080/faculty?studentsOfFaculty=6
+###
