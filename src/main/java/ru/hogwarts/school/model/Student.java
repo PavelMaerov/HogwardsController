@@ -1,9 +1,10 @@
 package ru.hogwarts.school.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
-public class Student {
+public class Student implements Comparable<Student>{
     @Id
     @GeneratedValue
     private Long id;
@@ -54,4 +55,24 @@ public class Student {
     public void setFaculty(Faculty faculty) {
         this.faculty = faculty;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Student)) return false;
+        Student student = (Student) o;
+        return Objects.equals(id, student.id) && Objects.equals(name, student.name) && (age==student.age);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, age);
+    }
+
+    @Override
+    public int compareTo(Student o) {
+        return (name + " " + age).compareTo(o.getName() + " " + o.getAge());
+    }
+
 }
