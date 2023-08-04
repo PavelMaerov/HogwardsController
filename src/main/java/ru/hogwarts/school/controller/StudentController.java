@@ -20,14 +20,17 @@ public class StudentController {
     public Student create(@RequestBody Student student) {
         return service.create(student);
     }
+
     @GetMapping(params = "id")
     public Student read(@RequestParam Long id) {
         return service.read(id);
     }
+
     @PutMapping
     public Student update(@RequestBody Student student) {
         return service.update(student);
     }
+
     @DeleteMapping
     public Student delete(@RequestParam Long id) {
         return service.delete(id);
@@ -37,10 +40,12 @@ public class StudentController {
     public Set<Student> readByAge(@RequestParam int age) {
         return service.readByAge(age);
     }
+
     @GetMapping(params = {"minAge", "maxAge"})
     public Set<Student> readByAgeBetween(@RequestParam int minAge, @RequestParam int maxAge) {
         return service.readByAgeBetween(minAge, maxAge);
     }
+
     @GetMapping
     public Set<Student> readAll() {
         return service.readAll();
@@ -51,5 +56,17 @@ public class StudentController {
         return service.read(studentId).getFaculty();
     }
 
+    @GetMapping("count")
+    public int studentCount() {
+        return service.studentCount();
+    }
+    @GetMapping("avgAge")
+    public double avgAge() {
+        return service.avgAge();
+    }
+    @GetMapping("last5")
+    public Set<Student> Last5() {
+        return service.Last5();
+    }
 
 }
