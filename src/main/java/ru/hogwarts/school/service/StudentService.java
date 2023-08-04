@@ -46,4 +46,14 @@ public class StudentService {
     public Set<Student> readAll() {
         return new HashSet<>(repository.findAll());
     }
+    public int studentCount() {
+        return repository.studentCount();
+    }
+    public double avgAge() {
+        return repository.avgAge();
+    }
+    public Set<Student> Last5() {
+        return repository.Last5();
+    }
+
 }

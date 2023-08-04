@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.util.List;
 
 
 @RestController
@@ -60,5 +61,9 @@ public class AvatarController {
             response.setContentLength((int) avatar.getFileSize());
             bis.transferTo(bos);
         }
+    }
+    @GetMapping(value = "page")
+    public List<Avatar> readPage(@RequestParam int page, @RequestParam int size) {
+        return service.readPage(page, size);
     }
 }
