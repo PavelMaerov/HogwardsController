@@ -82,4 +82,12 @@ public class Faculty implements Comparable<Faculty>{
         return (name + " " + color).compareTo(o.getName() + " " + o.getColor());
     }
 
+    @Override
+    public String toString() {
+        return "Faculty{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", color='" + color + '\'' +
+                '}';
+    }
 }
