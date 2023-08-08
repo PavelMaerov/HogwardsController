@@ -8,6 +8,8 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class StudentService {
@@ -72,5 +74,38 @@ public class StudentService {
         logger.info("Was invoked method 'Last5'");
         return repository.Last5();
     }
-
+    public List<String> allNamesA() {
+        //отсортированный список имен всех студентов в верхнем регистре, чье имя начинается с буквы А
+        return repository.findAll().stream()
+                .map(Student::getName)
+                .filter(s->s.matches("[a,A].*")) //наверно startsWith быстрее, но для эксперимента сделал регулярное выражение
+                .map(String::toUpperCase) //в верхний регистр перевожу после фильтрации, чтобы не переводить ненужные
+                .sorted()
+                .collect(Collectors.toList());
+    }
+    public double avgAgeByStream() {
+        return repository.findAll().stream()
+                .mapToInt(Student::getAge)
+                .average().orElse(0);
+    }
+    public long sumMillion() {  //int переполнится от такой суммы и даже не выдаст ошибку
+        long start = System.currentTimeMillis();
+        long sum = Stream.iterate(1L, a -> a + 1)
+                .limit(1_000_000)
+                .reduce(0L, Long::sum);
+        long finish = System.currentTimeMillis();
+        logger.info("Execution time of 'sumMillion' method = {} мс",finish-start);
+        return sum;
+    }
+    public long sumMillionParallel() {
+        long start = System.currentTimeMillis();
+        long sum = Stream.iterate(1L, a -> a + 1)
+                .parallel()
+                .limit(1_000_000)
+                .reduce(0L, Long::sum);
+        long finish = System.currentTimeMillis();
+        logger.info("Execution time of 'sumMillionParallel' method = {} мс",finish-start);
+        return sum;
+        //после распараллеливания получил ухудшение примерно в 2 раза
+    }
 }

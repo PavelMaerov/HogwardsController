@@ -63,4 +63,9 @@ public class FacultyController {
     public Set<Student> readStudentsOfFaculty(@RequestParam(name = "studentsOfFaculty") Long facultyId) {
         return service.read(facultyId).getStudents();
     }
+
+    @GetMapping("longestName")
+    public String longestName() {
+        return service.longestName();
+    }
 }

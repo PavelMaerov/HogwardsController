@@ -5,6 +5,7 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -69,4 +70,20 @@ public class StudentController {
         return service.Last5();
     }
 
+    @GetMapping("allNamesA")
+    public List<String> allNames() {
+        return service.allNamesA();
+    }
+    @GetMapping("avgAgeByStream")
+    public double avgAgeByStream() {
+        return service.avgAgeByStream();
+    }
+    @GetMapping("sumMillion")
+    public long sumMillion() {
+        return service.sumMillion();
+    }
+    @GetMapping("sumMillionParallel")
+    public long sumMillionParallel() {
+        return service.sumMillionParallel();
+    }
 }
