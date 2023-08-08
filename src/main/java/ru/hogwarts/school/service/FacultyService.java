@@ -55,4 +55,13 @@ public class FacultyService {
     public Set<Faculty> readAll() {
         return new HashSet<>(repository.findAll());
     }
+
+    public String longestName() {
+        return repository.findAll()
+                .stream()
+                .map(Faculty::getName)
+                //мой вариант с самодельным 'max' .reduce("",(s1,s2)->(s1.length()>s2.length()?s1:s2));
+                .max(Comparator.comparing(s->s.length())).orElse(""); //вариант на разборе
+    }
+
 }
