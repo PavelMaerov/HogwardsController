@@ -86,4 +86,13 @@ public class StudentController {
     public long sumMillionParallel() {
         return service.sumMillionParallel();
     }
+
+    @GetMapping("printNamesNotSynchronized")
+    public void printNamesNotSynchronized() {
+        service.printNamesNotSynchronized();
+    }
+    @GetMapping("printNamesSynchronized")
+    public void printNamesSynchronized() {
+        service.printNamesSynchronized();
+    }
 }
