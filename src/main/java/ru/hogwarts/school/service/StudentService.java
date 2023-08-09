@@ -113,10 +113,9 @@ public class StudentService {
 
     //печатает из списка студентов quantity имен со смещением offset от начала
     private void printPartOfList(List<Student> list, int offset, int quantity) {
-        Iterator<Student> iterator= list.listIterator();
-        for (int i = 0; i < offset; i++) iterator.next();   //сдвигаемся на offset позиции
-        for (int i = 0; i < quantity; i++) {                //печатаем quantity позиции
-            System.out.println(iterator.next().getName());
+        for (int i = offset; i < offset+quantity; i++) {
+            //System.out.println(list.get(i).getName()); так не информативно
+            logger.info(list.get(i).getName()); //так видны и время, и поток
             try {
                 sleep(1000);
             } catch (InterruptedException e) {
